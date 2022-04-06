@@ -1,0 +1,113 @@
+/*
+	CSS for Front-End
+*/
+
+*
+{
+	font-family: "Century Gothic";
+	overflow: visible
+}
+
+#bg
+{
+	background-image:linear-gradient(purple,blue);
+	position: flex; 
+	top: 0; 
+	left: 0; 
+	
+	min-width: 100%;
+	min-height: 100%;
+	
+	display:flex;
+	flex-direction: column;
+}
+
+#site_header
+{
+	background-image: linear-gradient(lightblue,blue);
+	justify-content: center;
+	margin-right:20px;
+	
+}
+
+#connect_header
+{
+	background-image: linear-gradient(red,orange);
+	margin-right:20px;
+	
+}
+
+input[type="submit"], input[type="button"]
+{
+	width:250px;
+	height:50px;
+	font-size:15pt;
+	margin: auto;
+	
+	box-shadow: 10px 10px 5px;
+}
+
+body
+{
+	color:black;
+	overflow:visible !important;
+}
+
+nav 
+{
+	padding: 30px;
+}
+
+#front_nav 
+{
+	padding: 100px;
+}
+
+a
+{
+	padding: 20px;
+	
+	border: 2px solid black;
+	background-image: linear-gradient(lightblue,white);
+	text-decoration: none;
+	color: black;
+}
+
+div
+{
+	padding: 10px;
+	color:white;
+	
+	text-align: center;
+}
+
+header
+{
+	top: 25%;
+	padding: 20px;
+	width:300px;
+}
+
+body header
+{
+	top: 25%;
+	justify-content: center;
+	padding: 20px;
+}
+
+label
+{
+	padding: 10px;
+}
+
+table
+{
+	border: solid black 3px;
+	width:600px;
+	justify-content:center;
+}
+
+#first_th
+{	
+	background-image: linear-gradient(white,black);
+}
