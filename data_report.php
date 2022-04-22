@@ -1,38 +1,42 @@
 <!DOCTYPE HTML>
 
 <html>
-	<title>Data Report</title>
+	<title>Front Page</title>
 	<link rel="stylesheet" href="css/style.css">
 	
-	<div id="bg">	
-		<!-- Logged in user-->
-		<div id = "site_header">
-			THEME PARK MANAGEMENT SYSTEM
-		</div>
-		
-		<nav>
-			<a href = "front_layout.php">Front Page</a>
-			<a href = "employee_form.php" >Employee Form</a>
-			<a href = "ride_form.php">Ride Form</a>
-		</nav>
-		
-		<header id = "connect_header">
-			Database Connection: <?php include 'see_connect.php'; echo $connection?>
+	<header id = "site_header">
+			<h1>THEME PARK SYSTEM MANAGEMENT SYSTEM</h1>
 		</header>
+		
+		<nav id = "status_bar">
+			<a href = "front_page.php">Front Page</a>
+			<?php
+				include 'actions/see_connect.php';
+				session_start();
+				if($_SESSION['hasEmployee'] or $_SESSION['isAdmin'])
+					echo "<a href = 'employee_form.php' >Employee Form</a>";
+				if($_SESSION['hasRide'] or $_SESSION['isAdmin'])
+					echo "<a href = 'ride_form.php' >Ride Form</a>";
+			?>
+			<a href = "general_data_info.php"> General Report </a>	
+			<a href = "generate_sales_form.php"> Sales Report </a>	
+			<a href = "password_manage.php"> Change Password </a>
+			<a href = "actions/logout.php"> Log out </a>
+		</nav>
 		
 		<body>
 			<h1>Employees</h1>
 			<?php
 				$query = "SELECT * FROM employee";
-		
+				
 				echo '<table border="0" cellspacing="2" cellpadding="2"> 
 					  <tr id = "first_th"> 
-							<td>employee_id </td> 
-							<td>name_first </td>  
-							<td>name_middle </td> 
-							<td>name_last </td> 
-							<td>date_of_birth </td> 
-							<td>phone_number </td> 
+							<td>employee id </td> 
+							<td>First Name</td>  
+							<td>Middle Name</td> 
+							<td>Last Name </td> 
+							<td>Date of Birth</td> 
+							<td>Phone Number </td> 
 					  </tr>';
 
 				if ($result = $connect->query($query)) 
@@ -59,38 +63,13 @@
 				} 
 			?>
 			<?php
-				$query = "SELECT * FROM employee_jobs";
-
-				echo '<table border="0" cellspacing="2" cellpadding="2"> 
-					  <tr id = "first_th"> 
-							<td>employee_id </td> 
-							<td>job_id </td> 
-					  </tr>';
-
-				if ($result = $connect->query($query)) 
-				{
-					while ($row = $result->fetch_assoc()) 
-					{
-						$field1name = $row["employee_id"];
-						$field2name = $row["job_id"];
-        
-						echo '<tr> 
-								  <td>'.$field1name.'</td> 
-                				  <td>'.$field2name.'</td> 
-							  </tr>';
-					}
-					$result->free();
-				} 
-			?>
-			<h1>Employee Jobs</h1>
-			<?php
 				$query = "SELECT * FROM job";
 
 				echo '<table border="0" cellspacing="2" cellpadding="2"> 
 					  <tr id = "first_th"> 
-							<td>job_id </td> 
-							<td>title </td>  
-							<td>pay_rate </td> 
+							<td>Job ID </td> 
+							<td>Job Title</td>  
+							<td>Pay Rate</td> 
 					  </tr>';
 
 				if ($result = $connect->query($query)) 
@@ -102,7 +81,7 @@
 						$field3name = $row["pay_rate"];
         
 						echo '<tr> 
-								  <td>'.$field1name.'</td> 
+						  <td>'.$field1name.'</td> 
                 				  <td>'.$field2name.'</td> 
                 				  <td>'.$field3name.'</td> 
 							  </tr>';
@@ -141,15 +120,15 @@
 
 				echo '<table border="0" cellspacing="2" cellpadding="2"> 
 					  <tr id = "first_th"> 
-							<td>ride_id </td> 
-							<td>name </td>   
-							<td>type </td>  
-							<td>manufacturer_id	</td>  
-							<td>status	</td>    
-							<td>riders_per_cycle </td>  
-							<td>ride_time_seconds </td> 
-							<td>hourly_capacity </td>   
-							<td>price_per_ride </td>  
+							<td>Ride ID </td> 
+							<td>Name </td>  
+							<td>Manufacturer ID	</td>  
+							<td>Type	</td> 
+							<td>Class	</td>       
+							<td>Ride Status	</td>    
+							<td>Max Weather Condition </td>  
+							<td>Description </td> 
+							<td>Minimum Operators Required </td>   
 					  </tr>';
 
 				if ($result = $connect->query($query)) 
@@ -157,14 +136,15 @@
 					while ($row = $result->fetch_assoc()) 
 					{
 						$field1name = $row["ride_id"];
-						$field2name = $row["name"];
-						$field3name = $row["type"];
-						$field4name = $row["manufacturer_id"];
-						$field5name = $row["status"];
-						$field6name = $row["riders_per_cycle"];
-						$field7name = $row["ride_time_seconds"];
-						$field8name = $row["hourly_capacity"];
-						$field9name = $row["price_per_ride"];
+						$field2name = $row["ride_name"];
+						$field3name = $row["manufacturer_id"];
+						$field4name = $row["ride_type"];
+						$field5name = $row["ride_class"];
+						$field6name = $row["ride_status"];
+						$field7name = $row["max_weather"];
+						$field8name = $row["ride_description"];
+						$field9name = $row["min_operators"];
+						
         
 						echo '<tr> 
 								  <td>'.$field1name.'</td> 
@@ -181,31 +161,29 @@
 					$result->free();
 				} 
 			?>
-			<h1>Ride</h1>
+			<h1>Rides</h1>
 			
 			<?php
 				$query = "SELECT * FROM ride_status_updates";
 
 				echo '<table border="0" cellspacing="2" cellpadding="2"> 
 					  <tr id = "first_th"> 
-							<td>status_change_id </td> 
-							<td>ride_id </td>  
-							<td>old_status </td>  
-							<td>new_status </td>  
-							<td>date_time </td>  
-							<td>reason </td>  
+							<td>Ride Name </td>
+							<td>Previous Status </td>  
+							<td>New Status </td>  
+							<td>Date</td>  
+							<td>Reason </td>  
 					  </tr>';
 
 				if ($result = $connect->query($query)) 
 				{
 					while ($row = $result->fetch_assoc()) 
 					{
-						$field1name = $row["status_change_id"];
-						$field2name = $row["ride_id"];
-						$field3name = $row["old_status"];
-						$field4name = $row["new_status"];
-						$field5name = $row["date_time"];
-						$field6name = $row["reason"];
+						$field1name = $row["ride_name"];
+						$field2name = $row["old_status"];
+						$field3name = $row["new_status"];
+						$field4name = $row["date_time"];
+						$field5name = $row["reason"];
         
 						echo '<tr> 
 								  <td>'.$field1name.'</td> 
@@ -213,7 +191,6 @@
                 				  <td>'.$field3name.'</td> 
                 				  <td>'.$field4name.'</td> 
                 				  <td>'.$field5name.'</td> 
-                				  <td>'.$field6name.'</td> 
 							  </tr>';
 					}
 					$result->free();
@@ -225,8 +202,8 @@
 
 				echo '<table border="0" cellspacing="2" cellpadding="2"> 
 					  <tr id = "first_th"> 
-							<td>status_id </td> 
-							<td>status </td>  
+							<td>Status ID </td> 
+							<td>Status </td>  
 					  </tr>';
 
 				if ($result = $connect->query($query)) 
@@ -245,34 +222,6 @@
 				} 
 			?>
 			<h1>Ride Status</h1>
-			<?php
-				$query = "SELECT * FROM user";
-
-				echo '<table border="0" cellspacing="2" cellpadding="2"> 
-					  <tr id = "first_th"> 
-							<td>user_id </td> 
-							<td>username </td>  
-							<td>password </td>  
-					  </tr>';
-
-				if ($result = $connect->query($query)) 
-				{
-					while ($row = $result->fetch_assoc()) 
-					{
-						$field1name = $row["user_id"];
-						$field2name = $row["username"];
-						$field3name = $row["password"];
-        
-						echo '<tr> 
-								  <td>'.$field1name.'</td> 
-                				  <td>'.$field2name.'</td> 
-                				  <td>'.$field3name.'</td> 
-							  </tr>';
-					}
-					$result->free();
-				} 
-			?>
-			<h1>User</h1>
 		</body>
-	</div>
+		
 </html>

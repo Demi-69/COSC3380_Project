@@ -32,8 +32,8 @@
 				$employee_middle = $_REQUEST['Employee_Middle']; 
 				$employee_last = $_REQUEST['Employee_Last']; 
 				$employee_dob = $_REQUEST['Employee_DOB'];  
-				$employee_number = $_REQUEST['Employee_Number'];
-
+				$employee_number = $_REQUEST['Employee_Number']; 
+				
 				$sql = "INSERT INTO employee (employee_id, name_first, name_middle, name_last, date_of_birth, phone_number) VALUES('$id_getter','$employee_first','$employee_middle','$employee_last','$employee_dob','$employee_number')";
 	
 				if(mysqli_query($connect, $sql)){
