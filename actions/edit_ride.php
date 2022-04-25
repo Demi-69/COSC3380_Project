@@ -11,10 +11,14 @@
 	$maxW = $_POST['Max_Weather'];
 	$s = $_POST['Ride_status'];
   
-    mysqli_query($connect,"update ride set name_first='$employee_first', name_middle='$employee_middle', name_last='$employee_last', date_of_birth='$employee_dob', phone_number='$employee_number' where employee_id = '$id'");
-	"ride_id = $name,
-	 ride_type=$type,
-	 manufacturer_id"
+    mysqli_query($connect,"update ride set ride_id = $name,
+	 ride_type='$type',
+	 manufacturer_id = '$manu',
+	 ride_class = '$class',
+	 max_weather = '$maxW',
+	 ride_status = '$s'
+	 where ride_id = '$id'");
+	 
 	$localhost = $_SESSION['localhost'];
-	header("Location: http://$localhost/employee_form.php");
+	header("Location: http://$localhost/ride_form.php");
 ?>
