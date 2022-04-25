@@ -1,4 +1,12 @@
-<?php include 'actions/login_check.php';?>
+<?php
+	session_start();
+	include('actions/see_connect.php');
+	$id=$_GET['id'];
+	
+	$query = "SELECT * FROM employee where employee_id ='$id'";
+	$result = $connect->query($query);	
+	$row = $result->fetch_assoc();
+?>
 <!DOCTYPE HTML>
 
 <html>
@@ -28,31 +36,33 @@
 		
 		
 		<h1>New Employee Registration</h1>
-		<form action = "actions/employee_data_submit.php" method = "POST">
+		<?php
+		echo '<form action = "actions/employee_edit.php?id='.$id.'" method = "POST">';
+		?>
 			<body>
 				<div>
 					<label for="Employee_First">New Employee First Name</label>
-					<input type = "text" name = "Employee_First" id= "first_name" required>
+					<input type = "text" name = "Employee_First" id= "first_name" value = "<?php echo $row['name_first']; ?>" required>
 				</div>
 			
 				<div>
 					<label for="Employee_Middle">New Employee Middle Name</label>
-					<input type = "text" name = "Employee_Middle" id= "middle_name" required>
+					<input type = "text" name = "Employee_Middle" id= "middle_name" value = "<?php echo $row['name_middle']; ?>" required>
 				</div>
 			
 				<div>
 					<label for="Employee_Last">New Employee Last Name</label>
-					<input type = "text" name = "Employee_Last" id= "last_name" required>
+					<input type = "text" name = "Employee_Last" id= "last_name" value = "<?php echo $row['name_last']; ?>" required>
 				</div>
 				
 				<div>
 					<label for="Employee_DOB">New Employee Day of Birth</label>
-					<input type = "date" name = "Employee_DOB" id= "date_of_birth" required>
+					<input type = "date" name = "Employee_DOB" id= "date_of_birth" value = "<?php echo $row['date_of_birth']; ?>" required>
 				</div>
 				
 				<div>
 					<label for="Employee_Number">New Employee Phone Number</label>
-					<input type = "text" name = "Employee_Number" id= "phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+					<input type = "text" name = "Employee_Number" id= "phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value = "<?php echo $row['phone_number']; ?>" required>
 				</div>
 				
 				<div>
@@ -75,7 +85,7 @@
 				</div>
 				
 				<div>
-					<input type = "submit" value = "Create Employee">
+					<input type = "submit" value = "Edit Employee">
 				</div>
 			</body>
 		</form>

@@ -32,40 +32,48 @@
 			<a href = "create_employee_form.php">Create Employee</a>
 		</p>
 		<?php
-			$query = "SELECT * FROM employee";
+			$query = "SELECT * FROM user";
 		
 			echo '<table border="0" cellspacing="2" cellpadding="2"> 
 				  <tr> <td colspan = "6" class = "table_head"><h1>Employees</h1></td></tr>
 				  
 				  <tr id = "first_th"> 
-						<td>employee_id </td> 
-						<td>name_first </td>  
-						<td>name_middle </td> 
-						<td>name_last </td> 
-						<td>date_of_birth </td> 
-						<td>phone_number </td> 
+						<td>user_id </td> 
+						<td>Admin </td>  
+						<td>Has Data Reports </td> 
+						<td>Maintanence </td> 
+						<td>Employee Management </td> 
 				  </tr>';
 	
 			if ($result = $connect->query($query)) 
 			{
 				while ($row = $result->fetch_assoc()) 
 				{
-					$field1name = $row["employee_id"];
-					$field2name = $row["name_first"];
-					$field3name = $row["name_middle"];
-					$field4name = $row["name_last"];
-					$field5name = $row["date_of_birth"];
-					$field6name = $row["phone_number"];
-        
+					$field1name = $row["user_id"];
+					
+					$field2name = "";
+					if($row["has_permission_admin"] == "1")
+						$field2name = "true";
+					else	
+						$field2name = "false";
+					
+					$field3name = $row["has_permission_ride_management"];
+						$field2name = "true";
+					else	
+						$field2name = "false";
+					
+					$field4name = $row["has_permission_employee_management"];
+						$field2name = "true";
+					else	
+						$field2name = "false";
+					
 					echo '<tr style="line-height:40px;" > 
 							<td>'.$field1name.'</td> 
 							<td>'.$field2name.'</td> 
 							<td>'.$field3name.'</td> 
 							<td>'.$field4name.'</td> 
-							<td>'.$field5name.'</td> 
-							<td>'.$field6name.'</td>
-							<td><a href="actions/ride_delete.php?id='.$field1name.'">Delete</a></td>
-							<td><a href="ride_edit.php?id='.$field1name.'">Edit</a></td>
+							<td><a href="actions/employee_delete.php?id='.$field1name.'">Delete</a></td>
+							<td><a href="employee_edit.php?id='.$field1name.'">Edit</a></td>
 						  </tr>';
 				}
 				$result->free();

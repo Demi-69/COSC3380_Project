@@ -3,7 +3,7 @@
 	
 	include('see_connect.php');
 		
-	$localhost = "44.203.241.251";
+	$localhost = "localhost/pages";
 	
 	$_SESSION['localhost'] = $localhost;
 		

@@ -1,3 +1,4 @@
+<?php include 'actions/login_check.php';?>
 <!DOCTYPE HTML>
 
 <html>
@@ -11,12 +12,12 @@
 		<nav id = "status_bar">
 			<a href = "front_page.php">Front Page</a>
 			<?php
-				include 'actions/see_connect.php';
-				session_start();
 				if($_SESSION['hasEmployee'] or $_SESSION['isAdmin'])
 					echo "<a href = 'employee_form.php' >Employee Form</a>";
 				if($_SESSION['hasRide'] or $_SESSION['isAdmin'])
 					echo "<a href = 'ride_form.php' >Ride Form</a>";
+				if($_SESSION['isAdmin'])
+					echo "<a href = 'update_status.php' >Update Weather</a>";
 			?>
 			<a href = "general_data_info.php"> General Report </a>	
 			<a href = "generate_sales_form.php"> Sales Report </a>	

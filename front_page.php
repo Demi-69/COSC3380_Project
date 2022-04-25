@@ -11,6 +11,7 @@
 		<nav id = "status_bar">
 		
 			<?php
+				include 'actions/see_connect.php'; 
 				session_start();
 				if($_SESSION['hasEmployee'] or $_SESSION['isAdmin'])
 					echo "<a href = 'employee_form.php' >Employee Form</a>";
@@ -19,7 +20,7 @@
 				if($_SESSION['hasRide'] or $_SESSION['isAdmin'])
 					echo "<a href = 'ride_form.php' >Ride Form</a>";
 				if($_SESSION['isAdmin'])
-					echo "<a href = 'update_status.php' >Update Status</a>";
+					echo "<a href = 'update_status.php' >Update Weather</a>";
 				
 			?>
 		
@@ -27,16 +28,32 @@
 			<a href = "actions/logout.php"> Log out </a>
 		</nav>
 		
-		<footer>
-			<div id = "status_bar">
-				<div id = "connect_header">
-					Database Connection: <?php include 'actions/see_connect.php'; echo $connection;?>
-				</div>
-				<div id = "park_status">
-					Park Status: <?php echo $open;?>
-				</div>
-			</div>
-		</footer>
-		
-		
+		<body>
+			<?php
+			$query = "SELECT ride_name, ride_status FROM ride";
+	
+			echo '<table border="0" cellspacing="2" cellpadding="2"> 
+				  <tr> <td colspan = "6" class = "table_head"><h1>Open Rides</h1></td></tr>
+				  
+				  <tr id = "first_th"> 
+						<td>Ride </td> 
+						<td>Status </td>  
+				  </tr>';
+	
+			if ($result = $connect->query($query)) 
+			{
+				while ($row = $result->fetch_assoc()) 
+				{
+					$field1name = $row["ride_name"];
+					$field2name = $row["ride_status"];
+					
+					echo '<tr> 
+							<td>'.$field1name.'</td> 
+							<td>'.$field2name.'</td> 
+						  </tr>';
+				}
+				$result->free();
+			} 
+			?>
+		</body>
 </html>

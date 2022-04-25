@@ -1,3 +1,4 @@
+<?php include 'actions/login_check.php';?>
 <!DOCTYPE HTML>
 
 <?php 
@@ -15,13 +16,14 @@
 		<nav id = "status_bar">
 		
 			<?php
-				session_start();
 				if($_SESSION['hasEmployee'] or $_SESSION['isAdmin'])
 					echo "<a href = 'employee_form.php' >Employee Form</a>";
 				if($_SESSION['hasReports'] or $_SESSION['isAdmin'])
 					echo "<a href = 'data_report.php' >Data Report</a>";
 				if($_SESSION['hasRide'] or $_SESSION['isAdmin'])
 					echo "<a href = 'ride_form.php' >Ride Form</a>";
+				if($_SESSION['isAdmin'])
+					echo "<a href = 'update_status.php' >Update Weather</a>";
 			?>
 		
 			<a href = "password_manage.php"> Change Password </a>

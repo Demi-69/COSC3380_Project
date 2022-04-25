@@ -1,3 +1,4 @@
+<?php include 'actions/login_check.php';?>
 <!DOCTYPE HTML>
 
 <html>
@@ -10,10 +11,6 @@
 		<div id = "site_header">
 			THEME PARK MANAGEMENT SYSTEM
 		</div>
-		
-		<header id = "connect_header">
-			Database Connection: <?php include 'see_connect.php'; echo $connection?>
-		</header>
 		
 		<body>
 			<?php
